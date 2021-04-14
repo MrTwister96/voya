@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { loadingController, toastController } from '@ionic/vue';
 import RegisterForm from '@/components/auth/RegisterForm.vue';
 
 export default {
@@ -14,13 +15,32 @@ export default {
     data() {
         return {
             title: "Register",
-            image: require('../../public/assets/images/auth.svg')
+            image: require('../../public/assets/images/auth.svg'),
         }
     },
     methods: {
         register(userData) {
-            console.log(userData)
-            console.log("WORKING!")
+            loadingController.create({
+                message: 'Please Wait...'
+            }).then((loading) => {
+                loading.present();
+                this.$store.dispatch('signup', {
+                    email: userData.email,
+                    password: userData.password
+                }).then(() => {
+                    loading.dismiss();
+                }).catch(() => {
+                    loading.dismiss();
+                    toastController.create({
+                        message: "This Email is already being used",
+                        duration: 2000,
+                        color: 'danger',
+                        position: 'top'
+                    }).then((toast) => {
+                        toast.present()
+                    })
+                })
+            });
         }
     }
 }

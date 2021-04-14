@@ -28,9 +28,12 @@ import AuthLayout from "@/components/base/AuthLayout.vue";
 
 import './registerServiceWorker'
 
+import store from './store';
+
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
+  .use(router)
+  .use(store);
 
 app.component('auth-layout', AuthLayout);
 
