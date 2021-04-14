@@ -26,12 +26,14 @@ import './theme/variables.css';
 /* Custom Imports */
 import AuthLayout from "@/components/base/AuthLayout.vue";
 
+import './registerServiceWorker'
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
 
 app.component('auth-layout', AuthLayout);
-  
+
 router.isReady().then(() => {
   app.mount('#app');
 });
