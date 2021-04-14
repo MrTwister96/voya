@@ -1,0 +1,7 @@
+{
+  "name": "voya",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
