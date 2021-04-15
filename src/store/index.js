@@ -24,7 +24,8 @@ const store = createStore({
 
             commit('setUserProfile', userProfile.data())
 
-            router.push('/')
+            router.push({ name: 'Home' })
+            
         },
         async signup({ dispatch }, form) {
             const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
@@ -35,8 +36,13 @@ const store = createStore({
             })
 
             dispatch('fetchUserProfile', user)
+            
+        },
+        async logout ({ commit }) {
+            await fb.auth.signOut()
 
-            router.push('/')
+            commit('setUserProfile', {})
+            router.push('/auth')
         }
     },
     getters: {}

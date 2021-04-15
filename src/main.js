@@ -25,18 +25,42 @@ import './theme/variables.css';
 
 /* Custom Imports */
 import AuthLayout from "@/components/base/AuthLayout.vue";
+import BaseLayout from "@/components/base/BaseLayout.vue";
 
 import './registerServiceWorker'
 
 import store from './store';
 
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router)
-  .use(store);
+import { auth } from './firebase';
 
-app.component('auth-layout', AuthLayout);
+let app
 
-router.isReady().then(() => {
-  app.mount('#app');
-});
+auth.onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App)
+      .use(IonicVue)
+      .use(router)
+      .use(store);
+    
+    app.component('auth-layout', AuthLayout);
+    app.component('base-layout', BaseLayout);
+
+    router.isReady().then(() => {
+      app.mount('#app');
+    });
+  }
+})
+
+// const app = createApp(App)
+//   .use(IonicVue)
+//   .use(router)
+//   .use(store);
+
+// app.component('auth-layout', AuthLayout);
+// app.component('base-layout', BaseLayout);
+
+// router.isReady().then(() => {
+//   app.mount('#app');
+// });
+
+

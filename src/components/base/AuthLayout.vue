@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-content>
+        <ion-content >
             <ion-card class="v-center">
                 <ion-card-header>
                     <ion-card-title class="ion-text-center">{{ title }}</ion-card-title>
@@ -12,6 +12,7 @@
                     <slot />
                 </ion-card-content>
             </ion-card>
+            <slot name="custom-end"></slot>
         </ion-content>
     </ion-page>
 </template>

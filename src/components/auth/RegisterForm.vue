@@ -38,6 +38,8 @@ export default {
                 email: this.enteredEmail,
                 password: this.enteredPassword
             }
+            this.enteredEmail = ""
+            this.enteredPassword = ""
 
             this.$emit('register', userData);
         }

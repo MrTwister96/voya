@@ -1,16 +1,20 @@
 <template>
     <auth-layout :title="title" :image="image">
         <login-form @login="login"></login-form>
+        <template v-slot:custom-end>
+            <back-fab @action="this.$router.push({ name: 'Auth' })"></back-fab>
+        </template>
     </auth-layout>
 </template>
 
 <script>
 import { loadingController, toastController } from '@ionic/vue';
 import LoginForm from '@/components/auth/LoginForm.vue';
+import BackFab from '@/components/buttons/BackFab.vue';
 
 export default {
     components: {
-        LoginForm
+        LoginForm, BackFab
     },
     data() {
         return {
