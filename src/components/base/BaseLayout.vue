@@ -8,7 +8,15 @@
             </ion-header>
             <ion-content>
                 <ion-list>
-                    <ion-item @click="logout()">
+                    <ion-item @click="this.$router.push({ name: 'Home' })">
+                        <ion-icon slot="start" :src="require('../../../public/assets/icon/home-outline.svg')"></ion-icon>
+                        <ion-label>Home</ion-label>
+                    </ion-item>
+                    <ion-item @click="this.$router.push({ name: 'Cars' })">
+                        <ion-icon slot="start" :src="require('../../../public/assets/icon/car-outline.svg')"></ion-icon>
+                        <ion-label>Cars</ion-label>
+                    </ion-item>
+                    <ion-item @click="logout">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/log-out-outline.svg')"></ion-icon>
                         <ion-label>Logout</ion-label>
                     </ion-item>
@@ -40,42 +48,24 @@
 
 <script>
 import {
-    IonPage,
-    IonHeader,
-    IonTitle,
-    IonContent,
-    IonToolbar,
-    IonBackButton,
-    IonButtons,
-    IonMenuButton,
-    IonMenu,
-    IonList,
-    IonItem,
-    IonIcon,
+    IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton,
+    IonButtons, IonMenuButton, IonMenu, IonList, IonItem, IonIcon,
     IonLabel
 } from '@ionic/vue'
+
+import { mapActions } from 'vuex'
 
 export default {
     props: ['title', 'pageDefaultBackLink'],
     components: {
-        IonPage,
-        IonHeader,
-        IonTitle,
-        IonContent,
-        IonToolbar,
-        IonBackButton,
-        IonButtons,
-        IonMenuButton,
-        IonMenu,
-        IonList,
-        IonItem,
-        IonIcon,
+        IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton,
+        IonButtons, IonMenuButton, IonMenu, IonList, IonItem, IonIcon,
         IonLabel
     },
     methods: {
-        logout() {
-            this.$store.dispatch('logout')
-        }
+        ...mapActions({
+            logout: 'logout'
+        })
     }
 }
 </script>

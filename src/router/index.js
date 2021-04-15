@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 
 import HomePage from '@/pages/HomePage.vue';
+import AddTripPage from '@/pages/AddTripPage.vue';
 import AuthPage from '@/pages/AuthPage.vue';
 import RegisterPage from '@/pages/RegisterPage.vue';
 import LoginPage from '@/pages/LoginPage.vue';
@@ -16,6 +17,12 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: HomePage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/addtrip',
+    name: 'AddTrip',
+    component: AddTripPage,
     meta: { requiresAuth: true }
   },
   {

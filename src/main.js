@@ -26,6 +26,7 @@ import './theme/variables.css';
 /* Custom Imports */
 import AuthLayout from "@/components/base/AuthLayout.vue";
 import BaseLayout from "@/components/base/BaseLayout.vue";
+import BlankLayout from "@/components/base/BlankLayout.vue";
 
 import './registerServiceWorker'
 
@@ -44,6 +45,7 @@ auth.onAuthStateChanged(() => {
     
     app.component('auth-layout', AuthLayout);
     app.component('base-layout', BaseLayout);
+    app.component('blank-layout', BlankLayout);
 
     router.isReady().then(() => {
       app.mount('#app');
