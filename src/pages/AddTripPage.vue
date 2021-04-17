@@ -8,9 +8,11 @@
 </template>
 
 <script>
+import { loadingController, toastController } from '@ionic/vue';
 import CloseFab from '@/components/buttons/CloseFab.vue';
 import BlankCenterCard from '@/components/cards/BlankCenterCard.vue';
 import AddTripForm from '@/components/forms/AddTripForm.vue';
+import {  mapActions } from 'vuex';
 
 export default {
     components: {
@@ -19,11 +21,33 @@ export default {
         AddTripForm
     },
     methods: {
+        ...mapActions({
+            addTrip: 'addTrip'
+        }),
         close(){
             this.$router.replace({ name: "Home" })
         },
         create(tripData){
-            console.log(tripData)
+            loadingController.create({
+                message: 'Please Wait...'
+            }).then((loading) => {
+                loading.present();
+                this.addTrip(tripData)
+                .then(() => {
+                    loading.dismiss();
+                    this.$router.replace({ name: "Home" })
+                }).catch(() => {
+                    loading.dismiss();
+                    toastController.create({
+                        message: "Unable to add trip",
+                        duration: 2000,
+                        color: 'danger',
+                        position: 'top'
+                    }).then((toast) => {
+                        toast.present()
+                    })
+                })
+            });
         }
     }
 }

@@ -51,7 +51,6 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
 
   if (requiresAuth && !auth.currentUser) {
-    console.log("No User Logged in")
     next('/auth')
   } else if (auth.currentUser && (to.name === "Auth" || to.name === "Register" || to.name === "Login")) {
     next("/")

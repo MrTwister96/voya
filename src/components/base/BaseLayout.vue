@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-menu side="end" content-id="main-content" ref="menu">
+        <ion-menu side="end" content-id="main-content">
             <ion-header>
                 <ion-toolbar translucent>
                     <ion-title>Menu</ion-title>
@@ -8,15 +8,15 @@
             </ion-header>
             <ion-content>
                 <ion-list>
-                    <ion-item @click="this.$router.push({ name: 'Home' })">
+                    <ion-item @click="route('Home')">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/home-outline.svg')"></ion-icon>
                         <ion-label>Home</ion-label>
                     </ion-item>
-                    <ion-item @click="this.$router.push({ name: 'Cars' })">
+                    <!-- <ion-item @click="this.$router.push({ name: 'Cars' })">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/car-outline.svg')"></ion-icon>
                         <ion-label>Cars</ion-label>
-                    </ion-item>
-                    <ion-item @click="logout">
+                    </ion-item> -->
+                    <ion-item @click="exit">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/log-out-outline.svg')"></ion-icon>
                         <ion-label>Logout</ion-label>
                     </ion-item>
@@ -42,7 +42,6 @@
                 <slot />
             </ion-content>
         </div>
-        
     </ion-page>
 </template>
 
@@ -52,6 +51,8 @@ import {
     IonButtons, IonMenuButton, IonMenu, IonList, IonItem, IonIcon,
     IonLabel
 } from '@ionic/vue'
+
+import { menuController } from "@ionic/core"
 
 import { mapActions } from 'vuex'
 
@@ -65,7 +66,15 @@ export default {
     methods: {
         ...mapActions({
             logout: 'logout'
-        })
+        }),
+        exit() {
+            menuController.toggle()
+            this.logout()
+        },
+        route(route) {
+            menuController.toggle()
+            this.$router.push({ name: route })
+        }
     }
 }
 </script>

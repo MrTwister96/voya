@@ -7,12 +7,16 @@ const store = createStore({
     plugins: [createPersistedState()],
     state() {
         return {
-            userProfile: {}
+            userProfile: {},
+            trips: {}
         }
     },
     mutations: {
         setUserProfile(state, userProfile) {
             state.userProfile = userProfile
+        },
+        setTrips(state, trips) {
+            state.trips = trips
         }
     },
     actions: {
@@ -26,6 +30,7 @@ const store = createStore({
             const { user } = await fb.auth.createUserWithEmailAndPassword(data.email, data.password)
             await fb.usersCollection.doc(user.uid).set({
                 name: "",
+                uid: user.uid,
                 email: data.email
             })
             dispatch('fetchUserProfile', user)
@@ -38,6 +43,52 @@ const store = createStore({
             await fb.auth.signOut()
             commit('setUserProfile', {})
             router.push({ name: "Auth" })
+        },
+
+        // App Actions
+        async fetchTrips({ commit, state }) {
+            const snapshot = await fb.tripsCollection.where('uid', '==', state.userProfile.uid).orderBy('date').get()
+
+            const trips = []
+
+            snapshot.forEach(doc => {
+                const trip = {
+                    id: doc.id,
+                    date: doc.data().date,
+                    description: doc.data().description,
+                    odoStart: doc.data().odoStart,
+                    odoEnd: doc.data().odoEnd,
+                    totalDistance: doc.data().totalDistance
+                }
+                trips.push(trip)
+            })
+
+            trips.reverse()
+
+            commit('setTrips', trips)
+        },
+
+        async addTrip ({ dispatch, state }, data) {
+            const user = state.userProfile
+
+
+            await fb.tripsCollection.doc().set({
+                uid: user.uid,
+                date: new Date(),
+                description: data.description,
+                odoStart: data.odoStart,
+                odoEnd: data.odoEnd,
+                totalDistance: data.totalDistance
+            })
+
+            dispatch('fetchTrips')
+        },
+
+        async deleteTrip ({ dispatch }, id) {
+            await fb.tripsCollection.doc(id).delete()
+
+            dispatch('fetchTrips')
+
         }
     },
     getters: {}
