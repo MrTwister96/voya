@@ -8,7 +8,7 @@ const store = createStore({
     state() {
         return {
             userProfile: {},
-            trips: {}
+            trips: []
         }
     },
     mutations: {
@@ -21,10 +21,11 @@ const store = createStore({
     },
     actions: {
         // Firebase Authentication Functions
-        async fetchUserProfile({ commit }, user) {
+        async fetchUserProfile({ dispatch, commit }, user) {
             const userProfile = await fb.usersCollection.doc(user.uid).get()
             commit('setUserProfile', userProfile.data())
             router.push({ name: 'Home' })
+            dispatch('fetchTrips')
         },
         async signup({ dispatch }, data) {
             const { user } = await fb.auth.createUserWithEmailAndPassword(data.email, data.password)
@@ -42,6 +43,7 @@ const store = createStore({
         async logout ({ commit }) {
             await fb.auth.signOut()
             commit('setUserProfile', {})
+            commit('setTrips', [])
             router.push({ name: "Auth" })
         },
 

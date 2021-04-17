@@ -11,7 +11,7 @@
 import { loadingController, toastController } from '@ionic/vue';
 import CloseFab from '@/components/buttons/CloseFab.vue';
 import BlankCenterCard from '@/components/cards/BlankCenterCard.vue';
-import AddTripForm from '@/components/forms/AddTripForm.vue';
+import AddTripForm from '@/components/trips/AddTripForm.vue';
 import {  mapActions } from 'vuex';
 
 export default {
