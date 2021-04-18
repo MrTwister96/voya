@@ -8,17 +8,19 @@
             </ion-header>
             <ion-content>
                 <ion-list>
-                    <ion-item @click="route('Home')">
+                    <ion-item @click="route('Home')" class="ion-activatable">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/home-outline.svg')"></ion-icon>
                         <ion-label>Home</ion-label>
+                        <ion-ripple-effect></ion-ripple-effect>
                     </ion-item>
                     <!-- <ion-item @click="this.$router.push({ name: 'Cars' })">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/car-outline.svg')"></ion-icon>
                         <ion-label>Cars</ion-label>
                     </ion-item> -->
-                    <ion-item @click="exit">
+                    <ion-item @click="exit" class="ion-activatable">
                         <ion-icon slot="start" :src="require('../../../public/assets/icon/log-out-outline.svg')"></ion-icon>
                         <ion-label>Logout</ion-label>
+                        <ion-ripple-effect></ion-ripple-effect>
                     </ion-item>
                 </ion-list>
             </ion-content>
@@ -49,7 +51,7 @@
 import {
     IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton,
     IonButtons, IonMenuButton, IonMenu, IonList, IonItem, IonIcon,
-    IonLabel
+    IonLabel, IonRippleEffect
 } from '@ionic/vue'
 
 import { menuController } from "@ionic/core"
@@ -61,7 +63,7 @@ export default {
     components: {
         IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton,
         IonButtons, IonMenuButton, IonMenu, IonList, IonItem, IonIcon,
-        IonLabel
+        IonLabel, IonRippleEffect
     },
     methods: {
         ...mapActions({

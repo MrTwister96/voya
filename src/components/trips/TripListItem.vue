@@ -1,16 +1,17 @@
 <template>
-    <ion-item>
+    <ion-item class="ion-activatable">
         <ion-label>
             <h2>{{ fmtDate(trip.date) }}</h2>
             <p>{{ trip.description }} ({{ trip.totalDistance }}Km)</p>
         </ion-label>
 
         <ion-icon slot="end" :src="require('../../../public/assets/icon/trash-outline.svg')" @click="deleteTrip(trip.id)"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
     </ion-item>
 </template>
 
 <script>
-import { IonIcon, IonItem, IonLabel, loadingController, toastController } from '@ionic/vue';
+import { IonIcon, IonItem, IonLabel, loadingController, toastController, IonRippleEffect } from '@ionic/vue';
 import { mapActions } from 'vuex';
 import moment from 'moment';
 
@@ -18,7 +19,7 @@ import moment from 'moment';
 export default {
     props: ['trip'],
     components: {
-        IonItem, IonLabel, IonIcon
+        IonItem, IonLabel, IonIcon, IonRippleEffect
     },
     methods: {
         ...mapActions({

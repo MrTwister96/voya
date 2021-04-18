@@ -8,7 +8,8 @@ const store = createStore({
     state() {
         return {
             userProfile: {},
-            trips: []
+            trips: [],
+            activeTrip: null
         }
     },
     mutations: {
@@ -17,6 +18,12 @@ const store = createStore({
         },
         setTrips(state, trips) {
             state.trips = trips
+        },
+        startTrip(state, trip){
+            state.activeTrip = trip
+        },
+        endTrip(state) {
+            state.activeTrip = null
         }
     },
     actions: {
@@ -91,6 +98,27 @@ const store = createStore({
 
             dispatch('fetchTrips')
 
+        },
+
+        startTrip({ commit }, tripData) {
+            const newTrip = {
+                description: tripData.description,
+                odoStart: tripData.odoStart,
+            }
+
+            commit('startTrip', newTrip)
+        },
+
+        endTrip({ state, dispatch, commit }, odoEnd) {
+            const tripData = {
+                description: state.activeTrip.description,
+                odoStart: state.activeTrip.odoStart,
+                odoEnd: odoEnd,
+                totalDistance: odoEnd - state.activeTrip.odoStart
+            }
+
+            dispatch('addTrip', tripData)
+            commit('endTrip')
         }
     },
     getters: {}
