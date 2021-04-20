@@ -36,7 +36,7 @@ A live demo of the app can be accessed at https://demoasd-15612.web.app/
 ## Running Locally
 
 Clone the repo:
-```git clone https://github.com/MrTwister96/shiny-garbanzo.git voya```
+```git clone https://github.com/MrTwister96/voya.git voya```
 
 Change to the directory and install dependencies:
 ```cd voya```
